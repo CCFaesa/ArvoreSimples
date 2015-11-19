@@ -30,15 +30,14 @@ public class Principal extends JFrame{
 	
 	
 	private void proximasExecucoes() {
-	}
 
 
 	}
 	public Principal() {
-		frame = new JFrame();
+		frame = new JPanel();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 	}
