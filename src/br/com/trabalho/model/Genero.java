@@ -2,7 +2,7 @@ package br.com.trabalho.model;
 
 public enum Genero {
 	
-	GENERO(0, "descricao");
+	ACAO(1, "Ação"), AVENTURA(2, "Aventura"), COMEDIA(3, "Comédia"), DRAMA(4, "DRAMA"), TERROR(5, "TERROR");
 	
 	private int id;
 	private String descricao;
