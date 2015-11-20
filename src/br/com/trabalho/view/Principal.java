@@ -52,9 +52,8 @@ public class Principal extends JFrame{
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 		
 			this.setVisible(true);
-			this.setResizable(false);
 			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-			this.setExtendedState(Frame.MAXIMIZED_BOTH);
+			this.setSize(1410, 960);
 			this.setLayout(new BorderLayout());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,11 +67,8 @@ public class Principal extends JFrame{
 		
 		frame.setBorder(BorderFactory.createLineBorder(Color.red));
 		frame.setBackground(Design.BACKGROUND_PRINCIPAL);
-        frame.setPreferredSize(new Dimension(2000, 4000));
+        frame.setPreferredSize(new Dimension(1380, 900));
         frame.setLayout(null);
-        
-        
-        
 	}
 	
 	private void adicionaElementos() {
