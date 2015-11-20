@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 
+import br.com.trabalho.global.Design;
 import br.com.trabalho.view.componente.AFolha;
 
 public class Principal extends JFrame{
@@ -69,7 +70,7 @@ public class Principal extends JFrame{
 		scroll = new JScrollPane(frame);
 		
 		frame.setBorder(BorderFactory.createLineBorder(Color.red));
-		frame.setBackground(Color.WHITE);
+		frame.setBackground(Design.BACKGROUND_PRINCIPAL);
         frame.setPreferredSize(new Dimension(2000, 4000));
         frame.setLayout(null);
         

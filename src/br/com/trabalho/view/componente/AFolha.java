@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import br.com.trabalho.global.Design;
+
 public class AFolha extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
@@ -32,7 +34,7 @@ public class AFolha extends JPanel{
 
 	private void criaComponentes() {
 		this.setLayout(null);
-		this.setBackground(Color.WHITE);
+		this.setBackground(Design.BACKGROUND_PRINCIPAL);
 		
 		background = new JLabel(new ImageIcon("res/Ring-folha.png"));
 		txt = new JLabel("", SwingConstants.CENTER);
