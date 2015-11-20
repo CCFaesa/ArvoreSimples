@@ -194,15 +194,12 @@ public class Arvore {
 	}
 	private Filme [] FazCamCentral (NoArv arv, Filme [] vet, int []n, Genero genero){
 		if (arv != null) {
-			vet = FazCamCentral (arv.getEsq(),vet,n);
-			vet[n[0]] = arv.getInfo();
-			n[0]++;
-			vet = FazCamCentral (arv.getDir(),vet,n);
-			
+			vet = FazCamCentral (arv.getEsq(),vet,n, genero);
 			if(arv.getInfo().getGenero().equals(genero)){
 				vet[n[0]] = arv.getInfo();
 				n[0]++;
 			}
+			vet = FazCamCentral (arv.getDir(),vet,n, genero);
 		}
 		return vet;
 	}
