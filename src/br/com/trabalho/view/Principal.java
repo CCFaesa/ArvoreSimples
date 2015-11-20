@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -44,21 +43,18 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 	private JScrollPane scroll;
 	
 	private JLabel titulo;
-	
 	private JLabel lblTituloCadastro;
+	private JLabel lblTituloCaminhamento;
 	private JLabel lblNome;
 	private JLabel lblGenero;
 	private JLabel lblAno;
-	
-	private JTextField txtNome;
-	private JComboBox<Genero> cbxGeneros;
-	private JTextField txtAno;
-	
-	private JLabel lblTituloCaminhamento;
 	private JLabel lblTipoCaminhamento;
 	private JLabel lblCamAno;
 	private JLabel lblCamGenero;
 	
+	private JTextField txtNome;
+	private JComboBox<Genero> cbxGeneros;
+	private JTextField txtAno;
 	private JComboBox<TipoCaminhamento> cbxTipoCaminhamento;
 	private JTextField txtCamAno;
 	private JComboBox<Genero> cbxCamGeneros;
@@ -70,7 +66,7 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 	private JButton btnRemover;
 	
 	private JList<Filme> listFilmes;
-	DefaultListModel<Filme> listModel = new DefaultListModel<Filme>();
+	private DefaultListModel<Filme> listModel = new DefaultListModel<Filme>();
 	
 	private Arvore arvore = new Arvore();
 	
@@ -81,16 +77,14 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 		
 		principal.criaElementos();
 		principal.adicionaElementos();
+		principal.itemStateChanged(null);
+
 		principal.addArvoreUI();
 		principal.addListeners();
 		
-		principal.proximasExecucoes();
 		principal.repaint();
 	}
 	
-	
-	private void proximasExecucoes() {
-	}
 	
 	public Principal(String title) {
 		super(title);
@@ -113,99 +107,92 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 		frame = new JPanel();
 		scroll = new JScrollPane(frame);
 		
+		//Set Configuracoes do Painel de fundo
 		frame.setBorder(BorderFactory.createLineBorder(Color.red));
 		frame.setBackground(Design.BACKGROUND_PRINCIPAL);
         frame.setPreferredSize(new Dimension(Design.TAMANHO_TELA_X - 30, Design.TAMANHO_TELA_Y - 60));
         frame.setLayout(null);
         
+        //LABELS INSTANCIANDO
         titulo = new JLabel("Árvore Binária de Filmes");
+        lblTituloCadastro = new JLabel("Cadastro Filmes");
+        lblTituloCaminhamento = new JLabel("Caminhamentos:");
         lblNome = new JLabel("Nome:", SwingConstants.RIGHT);
         lblGenero = new JLabel("Gênero:", SwingConstants.RIGHT);
         lblAno = new JLabel("Ano:", SwingConstants.RIGHT);
-        lblTituloCadastro = new JLabel("Cadastro Filmes");
-        
+        lblTipoCaminhamento = new JLabel("Tipo Caminhamento:");
+        lblCamAno = new JLabel("Ano: ");
+        lblCamGenero = new JLabel("Gênero: ");
+
+        //ENTRADAS INSTANCIANDO
         txtNome = new JTextField();
-        cbxGeneros = new JComboBox<Genero>(Genero.values());
         txtAno = new JTextField();
-        
-        btnCadastrar = new JButton("Cadastrar");
-        
-    	
-    	lblTituloCaminhamento = new JLabel("Caminhamentos:");
-     	lblTipoCaminhamento = new JLabel("Tipo Caminhamento:");
-     	lblCamAno = new JLabel("Ano: ");
-     	lblCamGenero = new JLabel("Gênero: ");
-     	
-     	cbxTipoCaminhamento = new JComboBox<TipoCaminhamento>(TipoCaminhamento.values());
-     	txtCamAno = new JTextField();
-     	cbxCamGeneros = new JComboBox<Genero>(Genero.values());
-     	
-     	btnCaminhar = new JButton("Caminhar");
-        
+        txtCamAno = new JTextField();
+        cbxGeneros = new JComboBox<Genero>(Genero.values());
+        cbxTipoCaminhamento = new JComboBox<TipoCaminhamento>(TipoCaminhamento.values());
+        cbxCamGeneros = new JComboBox<Genero>(Genero.values());
         listFilmes = new JList<Filme>(listModel);
         
-        btnAdicionar = new JButton("Adicionar");
-        btnRemover = new JButton("Remover");
-        btnBuscar = new JButton("Buscar");
-        
-        titulo.setBounds(525, 50, 350, 35);
+        //BOTOES INSTANCIANDO
+        btnCadastrar = new JButton("Cadastrar");
+     	btnCaminhar = new JButton("Caminhar");
+     	btnAdicionar = new JButton("Adicionar");
+     	btnRemover = new JButton("Remover");
+     	btnBuscar = new JButton("Buscar");
+     	
+
+        //LABELS TAMANHO E POSICAO
+     	titulo.setBounds(525, 50, 350, 35);
+        lblTituloCadastro.setBounds(45, 750, 200, 25);
+        lblTituloCaminhamento.setBounds(510, 750, 200, 25);
         lblNome.setBounds(45, 788, 55, 20);
         lblGenero.setBounds(45, 821, 55, 20);
         lblAno.setBounds(305, 821, 55, 20);
-        lblTituloCadastro.setBounds(45, 750, 200, 25);
+        lblTipoCaminhamento.setBounds(510, 788, 140, 20);
+        lblCamAno.setBounds(510, 821, 45, 20);
+        lblCamGenero.setBounds(510, 821, 57, 20);
         
+        //ENTRADAS TAMANHO E POSICAO
         txtNome.setBounds(110, 785, 335, 30);
-        cbxGeneros.setBounds(110, 818, 200, 30);
         txtAno.setBounds(365, 818, 80, 30);
-        
+        txtCamAno.setBounds(545, 818, 80, 30);
+        cbxGeneros.setBounds(110, 818, 200, 30);
+        cbxTipoCaminhamento.setBounds(655, 785, 257, 30);
+        cbxCamGeneros.setBounds(575, 818, 200, 30);
+        listFilmes.setBounds(1380, 80, 350, 620);
+
+        //BOTOES TAMANHO E POSICAO
         btnCadastrar.setBounds(325, 860, 120, 30);
-        
-        lblTituloCaminhamento.setBounds(510, 750, 200, 25);
-    	lblTipoCaminhamento.setBounds(510, 788, 140, 20);
-    	lblCamAno.setBounds(510, 821, 45, 20);
-    	lblCamGenero.setBounds(510, 821, 57, 20);
-    	
-    	cbxTipoCaminhamento.setBounds(655, 785, 257, 30);
-    	txtCamAno.setBounds(545, 818, 80, 30);
-    	cbxCamGeneros.setBounds(575, 818, 200, 30);
-    	
-    	btnCaminhar.setBounds(790, 860, 120, 30);
-        
+        btnCaminhar.setBounds(790, 860, 120, 30);
         btnAdicionar.setBounds(1378, 705, 120, 30);
         btnBuscar.setBounds(1498, 705, 115, 30);
         btnRemover.setBounds(1613, 705, 120, 30);
         
-        listFilmes.setBounds(1380, 80, 350, 620);
-        
-        
+        //CONFIGURACAO DE LAYOUT
+        titulo.setFont(Design.FONTE_TITULO1);
+        titulo.setForeground(Design.TITULO_PRINCIPAL);
+        lblTituloCadastro.setFont(Design.FONTE_TITULO2);
+        lblTituloCaminhamento.setFont(Design.FONTE_TITULO2);
         lblNome.setFont(Design.FONTE_PADRAO);
         lblGenero.setFont(Design.FONTE_PADRAO);
         lblAno.setFont(Design.FONTE_PADRAO);
+        lblTipoCaminhamento.setFont(Design.FONTE_PADRAO);
+        lblCamAno.setFont(Design.FONTE_PADRAO);
+        lblCamGenero.setFont(Design.FONTE_PADRAO);
         txtNome.setFont(Design.FONTE_PADRAO);
-        cbxGeneros.setFont(Design.FONTE_PADRAO);
         txtAno.setFont(Design.FONTE_PADRAO);
+        txtCamAno.setFont(Design.FONTE_PADRAO);
+        cbxGeneros.setFont(Design.FONTE_PADRAO);
+        cbxTipoCaminhamento.setFont(Design.FONTE_PADRAO);
+        cbxCamGeneros.setFont(Design.FONTE_PADRAO);
         btnCadastrar.setFont(Design.FONTE_PADRAO);
         btnAdicionar.setFont(Design.FONTE_PADRAO);
         btnBuscar.setFont(Design.FONTE_PADRAO);
         btnRemover.setFont(Design.FONTE_PADRAO);
-        lblTituloCadastro.setFont(Design.FONTE_TITULO2);
-        titulo.setFont(Design.FONTE_TITULO1);
-        
-        lblTituloCaminhamento.setFont(Design.FONTE_TITULO2);
-    	lblTipoCaminhamento.setFont(Design.FONTE_PADRAO);
-    	lblCamAno.setFont(Design.FONTE_PADRAO);
-    	lblCamGenero.setFont(Design.FONTE_PADRAO);
-    	
-    	cbxTipoCaminhamento.setFont(Design.FONTE_PADRAO);
-    	txtCamAno.setFont(Design.FONTE_PADRAO);
-    	cbxCamGeneros.setFont(Design.FONTE_PADRAO);
-    	
-    	btnCaminhar.setFont(Design.FONTE_PADRAO);
-        
-        titulo.setForeground(Design.TITULO_PRINCIPAL);
-        
+        btnCaminhar.setFont(Design.FONTE_PADRAO);
         listFilmes.setBorder(BorderFactory.createLineBorder(Design.TITULO_PRINCIPAL));
         
+        //ADICIONANDO SEPARADORES
         JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
         separator.setBounds(40, 775, 410, 5);
         frame.add(separator);
@@ -214,43 +201,37 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
         separator.setBounds(505, 775, 410, 5);
         frame.add(separator);
         
-        frame.add(titulo);
-
-        frame.add(lblNome);
-        frame.add(lblGenero);
-        frame.add(lblAno);
-        frame.add(lblTituloCadastro);
-        
-        frame.add(txtNome);
-        frame.add(cbxGeneros);
-        frame.add(txtAno);
-        
-        frame.add(btnCadastrar);
-        
-        frame.add(lblTituloCaminhamento);
-        frame.add(lblTipoCaminhamento);
-        frame.add(lblCamAno);
-        frame.add(lblCamGenero);
-    	
-        frame.add(cbxTipoCaminhamento);
-        frame.add(txtCamAno);
-        frame.add(cbxCamGeneros);
-        
-        frame.add(btnCaminhar);
-        
-        frame.add(btnBuscar);
-        frame.add(btnRemover);
-        frame.add(btnAdicionar);
-        
-        frame.add(listFilmes);
-        
-        itemStateChanged(null);
-        
 	}
 	
 	private void adicionaElementos() {
 		add(scroll, BorderLayout.CENTER);
 		this.setVisible(true);
+		
+		frame.add(titulo);
+
+        frame.add(lblNome);
+        frame.add(lblGenero);
+        frame.add(lblAno);
+        frame.add(lblTituloCadastro);
+        frame.add(lblTituloCaminhamento);
+        frame.add(lblTipoCaminhamento);
+        frame.add(lblCamAno);
+        frame.add(lblCamGenero);
+        
+        frame.add(txtNome);
+        frame.add(cbxGeneros);
+        frame.add(txtAno);
+        frame.add(cbxTipoCaminhamento);
+        frame.add(txtCamAno);
+        frame.add(cbxCamGeneros);
+        
+        frame.add(btnCadastrar);
+        frame.add(btnCaminhar);
+        frame.add(btnBuscar);
+        frame.add(btnRemover);
+        frame.add(btnAdicionar);
+        
+        frame.add(listFilmes);
 	}
 	
 	private void addArvoreUI() {
@@ -270,6 +251,7 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 			}
 		}
 	}
+
 	private void addListeners() {
 		btnCadastrar.addActionListener(this);
 		btnAdicionar.addActionListener(this);
@@ -280,7 +262,6 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 		txtCamAno.addKeyListener(this);
 		cbxTipoCaminhamento.addItemListener(this);
 	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -333,7 +314,6 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 				
 				JOptionPane.showMessageDialog(null, achouUm ? msg.toString() : "Não Encontrou Registro!", achouUm ? "Sucesso" : "Erro", achouUm ? JOptionPane.PLAIN_MESSAGE : JOptionPane.ERROR_MESSAGE);
 				
-				
 			}else if(cbxTipoCaminhamento.getSelectedItem().equals(TipoCaminhamento.CENTRAL)){
 				Filme[] retorno = arvore.CamCentral((Genero)cbxCamGeneros.getSelectedItem());
 				
@@ -346,9 +326,7 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 					achouUm = true;
 				}
 				
-				
 				JOptionPane.showMessageDialog(null, achouUm ? msg.toString() : "Não Encontrou Registro!", achouUm ? "Sucesso" : "Erro", achouUm ? JOptionPane.PLAIN_MESSAGE : JOptionPane.ERROR_MESSAGE);
-				
 			}
 		
 		}else if(e.getSource() == btnAdicionar){
@@ -379,7 +357,6 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 		}
 	}
 
-
 	@Override
 	public void keyPressed(KeyEvent ev) {}
 
@@ -403,7 +380,6 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 	public void keyTyped(KeyEvent arg0) {
 		
 	}
-
 
 	@Override
 	public void itemStateChanged(ItemEvent ev) {
