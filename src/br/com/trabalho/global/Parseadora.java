@@ -13,11 +13,13 @@ public abstract class Parseadora {
 		CFolha folha;
 		for (int i = 0; i < folhas.size(); i++) {
 			folha = folhas.get(i);
-			folha.setNoArv(arvAux.get(i));
+			folha.setNoArv(arvAux.size() <= 0 ? null : arvAux.get(i));
 			
 			NoArv noArv =  folha.getNoArv();
 			if(noArv != null){
 				folha.setText("#"+noArv.getInfo().getId());
+			}else{
+				folha.setText("");
 			}
 		}
 	}
