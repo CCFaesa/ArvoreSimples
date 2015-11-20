@@ -27,6 +27,9 @@ public class CLinha extends JPanel{
 		this.repaint();
 	}
 	
+	//FIXME 	A linha sempre tem apenas duas posicoes
+	//FIXME		inferiorEsquerda para superiorDireita ou superiorEsquerda para inferiorDireita
+	//FIXME		nunca inferiorDireita para superiorEsquerda ou superiorDireita para inferiorEsquerda
 	@Override
 	public void paint(Graphics g) {
 		if(ini.getX() > fim.getX()){

@@ -21,13 +21,10 @@ public class Principal extends JFrame{
 	private JPanel frame;
 	private JScrollPane scroll;
 	
+	private ArrayList<CFolha> folhas;
 	
-	//VARIAVEIS DO KEOMA
-	//APAGUE ESTA LINHA E COLOQUE SUAS VARIAVEIS NESSA AREA //TODO KEOMA
-	//FIM VARIAVEIS DO KEOMA
-
 	public static void main(String[] args) {
-		Principal principal = new Principal("Árvore Binária");
+		Principal principal = new Principal("Arvore Binaria");
 		
 		principal.criaElementos();
 		principal.adicionaElementos();
@@ -40,23 +37,7 @@ public class Principal extends JFrame{
 	
 	
 	private void proximasExecucoes() {
-
-//		AFolha folha = new AFolha("#001");
-//		folha.setBounds(10, 10, 60, 60);
-//		frame.add(folha);
-		
-		//TODO KEOMA: crie na area do quadrado azul um cadastro de filmes com as entradas: nome, genero e ano
-		//TODO KEOMA: um botao cadastrar que cria o objeto
-		JPanel apagar = new JPanel();
-		apagar.setBounds(20, 20, 220, 400);
-		apagar.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-		apagar.setBackground(Design.BACKGROUND_PRINCIPAL);
-		
-		frame.add(apagar);
-		
-		
-
-	}
+			}
 	public Principal() {
 		frame = new JPanel();
 		frame.setBounds(100, 100, 450, 300);
