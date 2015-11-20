@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -12,7 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 
 import br.com.trabalho.global.Design;
-import br.com.trabalho.view.componente.AFolha;
+import br.com.trabalho.view.componente.CFolha;
+import br.com.trabalho.view.componente.CLinha;
 
 public class Principal extends JFrame{
 
@@ -28,6 +30,7 @@ public class Principal extends JFrame{
 		
 		principal.criaElementos();
 		principal.adicionaElementos();
+		principal.addArvoreUI();
 		principal.addListeners();
 		
 		principal.proximasExecucoes();
@@ -74,10 +77,27 @@ public class Principal extends JFrame{
 	private void adicionaElementos() {
 		add(scroll, BorderLayout.CENTER);
 		this.setVisible(true);
-		
-		
+	}
+	
+	private void addArvoreUI() {
+
+		folhas = Design.getPosicoes();
+		CLinha linha;
+		for (CFolha folha : folhas) {
+			frame.add(folha);
+			
+			if(folha.getDireita() != null){
+				linha = new CLinha(folha.getBase(), folha.getDireita().getTopo());
+				frame.add(linha);
+			}
+			if(folha.getEsquerda() != null){
+				linha = new CLinha(folha.getBase(), folha.getEsquerda().getTopo());
+				frame.add(linha);
+			}
+		}
 	}
 	private void addListeners() {
 		
 	}
+	
 }
