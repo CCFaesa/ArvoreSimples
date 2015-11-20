@@ -277,6 +277,7 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 		btnRemover.addActionListener(this);
 		btnCaminhar.addActionListener(this);
 		txtAno.addKeyListener(this);
+		txtCamAno.addKeyListener(this);
 		cbxTipoCaminhamento.addItemListener(this);
 	}
 
@@ -312,7 +313,29 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 			Filme filme = new Filme(nome, genero, anoLancamento);
 			listModel.addElement(filme);
 		}else if(e.getSource() == btnCaminhar){
-		
+			if(cbxTipoCaminhamento.getSelectedItem().equals(TipoCaminhamento.POS_FIXADO)){
+				int ano = Integer.valueOf(txtCamAno.getText().isEmpty() ? "0" :  txtCamAno.getText());
+				
+				if(ano < 1900 || ano > 2050){
+					JOptionPane.showMessageDialog(null, "Data Inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				Filme[] retorno = arvore.CamPosFixado(ano);
+				StringBuilder msg = new StringBuilder();
+				boolean achouUm = false;
+				
+				for (int i = 0; i < retorno.length; i++) {
+					if(retorno[i] == null) break;
+					msg.append("#" + retorno[i].getId() + "; ");
+					achouUm = true;
+				}
+				
+				
+				JOptionPane.showMessageDialog(null, achouUm ? msg.toString() : "Não Encontrou Registro!", achouUm ? "Sucesso" : "Erro", achouUm ? JOptionPane.PLAIN_MESSAGE : JOptionPane.ERROR_MESSAGE);
+				
+				
+			}
 		
 		}else if(e.getSource() == btnAdicionar){
 			if(listFilmes.getSelectedIndex() > -1){
@@ -326,7 +349,6 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 				Filme filme = listFilmes.getSelectedValue();
 				StringBuilder strb = new StringBuilder();
 				if(arvore.pesquisar(filme.getId(), strb)){
-					
 					JOptionPane.showMessageDialog(null, strb.toString() + "[ACHOU]  #" + filme.getId(), "Sucesso", JOptionPane.PLAIN_MESSAGE);
 				}else{
 					JOptionPane.showMessageDialog(null, "Não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);

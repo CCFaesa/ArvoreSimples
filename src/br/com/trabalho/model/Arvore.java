@@ -167,4 +167,43 @@ public class Arvore {
 		}
 		return vet;
 	}
+	
+	public Filme [] CamPosFixado (int ano){
+		int []n= new int[1];
+		n[0]=0;
+		Filme [] vet = new Filme[this.quantNos];
+		return (FazCamPosFixado (this.raiz, vet, n, ano));
+	}
+	private Filme [] FazCamPosFixado (NoArv arv, Filme[] vet, int []n, int ano){
+		if (arv != null) {
+			vet = FazCamPosFixado (arv.getEsq(), vet,n, ano);
+			vet = FazCamPosFixado (arv.getDir(), vet,n, ano);
+			if(arv.getInfo().getAnoLancamento() >= ano){
+				vet[n[0]] = arv.getInfo();
+				n[0]++;
+			}
+		}
+		return vet;
+	}
+	
+	public Filme [] CamCentral (Genero genero){
+		int []n= new int[1];
+		n[0]=0;
+		Filme [] vet = new Filme[this.quantNos];
+		return (FazCamCentral (this.raiz, vet, n, genero));
+	}
+	private Filme [] FazCamCentral (NoArv arv, Filme [] vet, int []n, Genero genero){
+		if (arv != null) {
+			vet = FazCamCentral (arv.getEsq(),vet,n);
+			vet[n[0]] = arv.getInfo();
+			n[0]++;
+			vet = FazCamCentral (arv.getDir(),vet,n);
+			
+			if(arv.getInfo().getGenero().equals(genero)){
+				vet[n[0]] = arv.getInfo();
+				n[0]++;
+			}
+		}
+		return vet;
+	}
 }
