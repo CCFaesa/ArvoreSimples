@@ -7,15 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -51,6 +51,12 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
 	private JTextField txtAno;
 	
 	private JButton btnCadastrar;
+	private JButton btnAdicionar;
+	private JButton btnBuscar;
+	private JButton btnRemover;
+	
+	private JList<Filme> listFilmes;
+	DefaultListModel<Filme> listModel = new DefaultListModel<Filme>();
 	
 	private Arvore arvore = new Arvore();
 	
@@ -108,7 +114,12 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
         cbxGeneros = new JComboBox<Genero>(Genero.values());
         txtAno = new JTextField();
         
+        listFilmes = new JList<Filme>(listModel);
+        
         btnCadastrar = new JButton("Cadastrar");
+        btnAdicionar = new JButton("Adicionar");
+        btnRemover = new JButton("Remover");
+        btnBuscar = new JButton("Buscar");
         
         titulo.setBounds(525, 50, 350, 35);
         lblNome.setBounds(45, 788, 55, 20);
@@ -121,6 +132,11 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
         txtAno.setBounds(365, 818, 80, 30);
         
         btnCadastrar.setBounds(325, 860, 120, 30);
+        btnAdicionar.setBounds(1378, 705, 120, 30);
+        btnBuscar.setBounds(1498, 705, 115, 30);
+        btnRemover.setBounds(1613, 705, 120, 30);
+        
+        listFilmes.setBounds(1380, 80, 350, 620);
         
         
         lblNome.setFont(Design.FONTE_PADRAO);
@@ -130,10 +146,15 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
         cbxGeneros.setFont(Design.FONTE_PADRAO);
         txtAno.setFont(Design.FONTE_PADRAO);
         btnCadastrar.setFont(Design.FONTE_PADRAO);
+        btnAdicionar.setFont(Design.FONTE_PADRAO);
+        btnBuscar.setFont(Design.FONTE_PADRAO);
+        btnRemover.setFont(Design.FONTE_PADRAO);
         lblTituloCadastro.setFont(Design.FONTE_TITULO2);
         titulo.setFont(Design.FONTE_TITULO1);
         
         titulo.setForeground(Design.TITULO_PRINCIPAL);
+        
+        listFilmes.setBorder(BorderFactory.createLineBorder(Design.TITULO_PRINCIPAL));
         
         JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
         separator.setBounds(40, 775, 410, 5);
@@ -151,6 +172,11 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
         frame.add(txtAno);
         
         frame.add(btnCadastrar);
+        frame.add(btnBuscar);
+        frame.add(btnRemover);
+        frame.add(btnAdicionar);
+        
+        frame.add(listFilmes);
         
 	}
 	
@@ -178,6 +204,9 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
 	}
 	private void addListeners() {
 		btnCadastrar.addActionListener(this);
+		btnAdicionar.addActionListener(this);
+		btnBuscar.addActionListener(this);
+		btnRemover.addActionListener(this);
 		txtAno.addKeyListener(this);
 	}
 
@@ -185,6 +214,8 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnCadastrar){
+			if(listModel.getSize() >= 31) return;
+			
 			String mensagem = "";
 			
 			String nome = "";
@@ -192,7 +223,7 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
 			Genero genero = Genero.ACAO;
 
 			try {
-				nome = txtNome.getText();
+				nome = txtNome.getText().toUpperCase();
 				anoLancamento = Integer.valueOf(txtAno.getText());
 				genero = (Genero) cbxGeneros.getSelectedItem();
 			} catch (Exception e2) {}
@@ -209,9 +240,33 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
 			}
 			
 			Filme filme = new Filme(nome, genero, anoLancamento);
-			arvore.inserir(filme);
-			
-			Parseadora.setArvoreUI(arvore, folhas);
+			listModel.addElement(filme);
+		}else if(e.getSource() == btnAdicionar){
+			if(listFilmes.getSelectedIndex() > -1){
+				Filme filme = listFilmes.getSelectedValue();
+				arvore.inserir(filme);
+				
+				Parseadora.setArvoreUI(arvore, folhas);
+			}
+		}else if(e.getSource() == btnBuscar){
+			if(listFilmes.getSelectedIndex() > -1){
+				Filme filme = listFilmes.getSelectedValue();
+				StringBuilder strb = new StringBuilder();
+				if(arvore.pesquisar(filme.getId(), strb)){
+					
+					JOptionPane.showMessageDialog(null, strb.toString() + "[ACHOU]  #" + filme.getId(), "Sucesso", JOptionPane.PLAIN_MESSAGE);
+				}else{
+					JOptionPane.showMessageDialog(null, "Não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}else if(e.getSource() == btnRemover){
+			if(listFilmes.getSelectedIndex() > -1){
+				Filme filme = listFilmes.getSelectedValue();
+				listModel.removeElement(filme);
+				arvore.remover(filme.getId());
+				
+				Parseadora.setArvoreUI(arvore, folhas);
+			}
 		}
 	}
 
@@ -237,7 +292,6 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 	
