@@ -3,6 +3,10 @@ package br.com.trabalho.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -12,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -20,11 +25,14 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import br.com.trabalho.global.Design;
+import br.com.trabalho.global.Parseadora;
+import br.com.trabalho.model.Arvore;
+import br.com.trabalho.model.Filme;
 import br.com.trabalho.model.Genero;
 import br.com.trabalho.view.componente.CFolha;
 import br.com.trabalho.view.componente.CLinha;
 
-public class Principal extends JFrame{
+public class Principal extends JFrame implements ActionListener, KeyListener{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -43,6 +51,8 @@ public class Principal extends JFrame{
 	private JTextField txtAno;
 	
 	private JButton btnCadastrar;
+	
+	private Arvore arvore = new Arvore();
 	
 	private ArrayList<CFolha> folhas;
 	
@@ -167,6 +177,67 @@ public class Principal extends JFrame{
 		}
 	}
 	private void addListeners() {
+		btnCadastrar.addActionListener(this);
+		txtAno.addKeyListener(this);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btnCadastrar){
+			String mensagem = "";
+			
+			String nome = "";
+			int anoLancamento = 0;
+			Genero genero = Genero.ACAO;
+
+			try {
+				nome = txtNome.getText();
+				anoLancamento = Integer.valueOf(txtAno.getText());
+				genero = (Genero) cbxGeneros.getSelectedItem();
+			} catch (Exception e2) {}
+			
+			if(nome.isEmpty()){
+				mensagem = "Campo nome é obrigatório!";
+			}else if(anoLancamento < 1900 || anoLancamento > 2050){
+				mensagem = "Data inválida!";
+			}
+			
+			if(!mensagem.isEmpty()){
+				JOptionPane.showMessageDialog(null, mensagem, "Erro", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			Filme filme = new Filme(nome, genero, anoLancamento);
+			arvore.inserir(filme);
+			
+			Parseadora.setArvoreUI(arvore, folhas);
+		}
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent ev) {}
+
+	@Override
+	public void keyReleased(KeyEvent ev) {
+		JTextField aux = (JTextField)ev.getSource();
+		String texto = aux.getText();
+		String retorno = "";
+		
+		for (int i = 0; i < texto.length(); i++) {
+			try {
+                Integer.parseInt( String.valueOf( texto.charAt(i) ) );
+                retorno += String.valueOf( texto.charAt(i) );
+            } catch ( NumberFormatException exc ) {
+            }
+		}
+		aux.setText(retorno);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 	
