@@ -372,7 +372,7 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 	@Override
 	public void itemStateChanged(ItemEvent ev) {
 		
-		if( cbxTipoCaminhamento.getSelectedItem().equals(TipoCaminhamento.CENTRAL)){
+		if( cbxTipoCaminhamento.getSelectedItem().equals(TipoCaminhamento.POS_FIXADO)){
 			lblCamAno.setVisible(true);
 			txtCamAno.setVisible(true);
 			lblCamGenero.setVisible(false);

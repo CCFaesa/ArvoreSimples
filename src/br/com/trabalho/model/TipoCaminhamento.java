@@ -1,7 +1,7 @@
 package br.com.trabalho.model;
 
 public enum TipoCaminhamento {
-	CENTRAL("Por Ano [CENTRAL]"), POS_FIXADO("Por Gênero [POS FIXADO]");
+	CENTRAL("Por Gênero [CENTRAL]"), POS_FIXADO("Por Ano [POS FIXADO]");
 	
 	String descricao;
 	
