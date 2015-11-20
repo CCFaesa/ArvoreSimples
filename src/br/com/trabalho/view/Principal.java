@@ -331,9 +331,23 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 					achouUm = true;
 				}
 				
-				
 				JOptionPane.showMessageDialog(null, achouUm ? msg.toString() : "Não Encontrou Registro!", achouUm ? "Sucesso" : "Erro", achouUm ? JOptionPane.PLAIN_MESSAGE : JOptionPane.ERROR_MESSAGE);
 				
+				
+			}else if(cbxTipoCaminhamento.getSelectedItem().equals(TipoCaminhamento.CENTRAL)){
+				Filme[] retorno = arvore.CamCentral((Genero)cbxCamGeneros.getSelectedItem());
+				
+				StringBuilder msg = new StringBuilder();
+				boolean achouUm = false;
+				
+				for (int i = 0; i < retorno.length; i++) {
+					if(retorno[i] == null) break;
+					msg.append("#" + retorno[i].getId() + "; ");
+					achouUm = true;
+				}
+				
+				
+				JOptionPane.showMessageDialog(null, achouUm ? msg.toString() : "Não Encontrou Registro!", achouUm ? "Sucesso" : "Erro", achouUm ? JOptionPane.PLAIN_MESSAGE : JOptionPane.ERROR_MESSAGE);
 				
 			}
 		
