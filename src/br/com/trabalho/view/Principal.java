@@ -11,8 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 
+import br.com.trabalho.view.componente.AFolha;
+
 public class Principal extends JFrame{
 
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel frame;
 	private JScrollPane scroll;
 
@@ -31,15 +35,15 @@ public class Principal extends JFrame{
 	
 	private void proximasExecucoes() {
 
+		AFolha folha = new AFolha("#001");
+		folha.setBounds(10, 10, 60, 60);
+		frame.add(folha);
 
 	}
 	public Principal() {
 		frame = new JPanel();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setVisible(true);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
 	}
 
 	
@@ -65,8 +69,11 @@ public class Principal extends JFrame{
 		scroll = new JScrollPane(frame);
 		
 		frame.setBorder(BorderFactory.createLineBorder(Color.red));
+		frame.setBackground(Color.WHITE);
         frame.setPreferredSize(new Dimension(2000, 4000));
         frame.setLayout(null);
+        
+        
         
 	}
 	
