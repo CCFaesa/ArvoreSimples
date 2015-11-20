@@ -63,6 +63,25 @@ public class Arvore {
 		}
 		return no;
 	}
+	public boolean pesquisar (int chave, StringBuilder retorno){
+		if (pesquisar (chave, this.raiz,retorno)!= null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	private NoArv pesquisar (int chave, NoArv no, StringBuilder retorno){
+		if (no != null){
+			if (chave < no.getInfo().getId()){
+				retorno.append("#" + no.getInfo().getId() + " - > [Esquerda]\n");
+				no = pesquisar (chave, no.getEsq(), retorno);
+			}else if (chave > no.getInfo().getId()){
+				retorno.append("#" + no.getInfo().getId() + " - > [Direita]\n");
+				no = pesquisar (chave, no.getDir(), retorno);
+			}
+		}
+		return no;
+	}
 	public boolean remover (int chave){
 		if (pesquisar (chave, this.raiz) != null){
 			this.raiz = remover (chave, this.raiz);
