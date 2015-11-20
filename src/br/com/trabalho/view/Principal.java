@@ -45,12 +45,16 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 	private JLabel titulo;
 	private JLabel lblTituloCadastro;
 	private JLabel lblTituloCaminhamento;
+	private JLabel lblTituloIntegrantes;
 	private JLabel lblNome;
 	private JLabel lblGenero;
 	private JLabel lblAno;
 	private JLabel lblTipoCaminhamento;
 	private JLabel lblCamAno;
 	private JLabel lblCamGenero;
+	private JLabel lblJefferson;
+	private JLabel lblKeoma;
+	private JLabel lblWiliam;
 	
 	private JTextField txtNome;
 	private JComboBox<Genero> cbxGeneros;
@@ -85,7 +89,6 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
 		principal.repaint();
 	}
 	
-	
 	public Principal(String title) {
 		super(title);
 		
@@ -115,14 +118,18 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
         
         //LABELS INSTANCIANDO
         titulo = new JLabel("Árvore Binária de Filmes");
-        lblTituloCadastro = new JLabel("Cadastro Filmes");
+        lblTituloCadastro = new JLabel("Cadastro Filmes:");
         lblTituloCaminhamento = new JLabel("Caminhamentos:");
+        lblTituloIntegrantes = new JLabel(Design.INTEGRANTES, SwingConstants.RIGHT);
         lblNome = new JLabel("Nome:", SwingConstants.RIGHT);
         lblGenero = new JLabel("Gênero:", SwingConstants.RIGHT);
         lblAno = new JLabel("Ano:", SwingConstants.RIGHT);
         lblTipoCaminhamento = new JLabel("Tipo Caminhamento:");
         lblCamAno = new JLabel("Ano: ");
         lblCamGenero = new JLabel("Gênero: ");
+        lblJefferson = new JLabel("Jefferson", SwingConstants.RIGHT);
+        lblKeoma = new JLabel("Keoma Klaver Klein", SwingConstants.RIGHT);
+        lblWiliam = new JLabel("Wiliam Trancoso Dal cim Junior", SwingConstants.RIGHT);
 
         //ENTRADAS INSTANCIANDO
         txtNome = new JTextField();
@@ -145,12 +152,16 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
      	titulo.setBounds(525, 50, 350, 35);
         lblTituloCadastro.setBounds(45, 750, 200, 25);
         lblTituloCaminhamento.setBounds(510, 750, 200, 25);
+        lblTituloIntegrantes.setBounds(1386, 750, 340, 25);
         lblNome.setBounds(45, 788, 55, 20);
         lblGenero.setBounds(45, 821, 55, 20);
         lblAno.setBounds(305, 821, 55, 20);
         lblTipoCaminhamento.setBounds(510, 788, 140, 20);
         lblCamAno.setBounds(510, 821, 45, 20);
         lblCamGenero.setBounds(510, 821, 57, 20);
+        lblJefferson.setBounds(1378, 788, 350, 20);
+        lblKeoma.setBounds(1378, 821, 350, 20);
+        lblWiliam.setBounds(1378, 854, 350, 20);
         
         //ENTRADAS TAMANHO E POSICAO
         txtNome.setBounds(110, 785, 335, 30);
@@ -173,12 +184,21 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
         titulo.setForeground(Design.TITULO_PRINCIPAL);
         lblTituloCadastro.setFont(Design.FONTE_TITULO2);
         lblTituloCaminhamento.setFont(Design.FONTE_TITULO2);
+        lblTituloIntegrantes.setFont(Design.FONTE_TITULO3);
+        lblTituloIntegrantes.setForeground(Design.TITULO_INTEGRANTES);
         lblNome.setFont(Design.FONTE_PADRAO);
         lblGenero.setFont(Design.FONTE_PADRAO);
         lblAno.setFont(Design.FONTE_PADRAO);
         lblTipoCaminhamento.setFont(Design.FONTE_PADRAO);
         lblCamAno.setFont(Design.FONTE_PADRAO);
         lblCamGenero.setFont(Design.FONTE_PADRAO);
+        lblJefferson.setFont(Design.FONTE_INTEGRANTES);
+        lblJefferson.setForeground(Design.NOME_INTEGRANTES);
+        lblKeoma.setFont(Design.FONTE_INTEGRANTES);
+        lblKeoma.setForeground(Design.NOME_INTEGRANTES);
+        lblWiliam.setFont(Design.FONTE_INTEGRANTES);
+        lblWiliam.setForeground(Design.NOME_INTEGRANTES);
+        
         txtNome.setFont(Design.FONTE_PADRAO);
         txtAno.setFont(Design.FONTE_PADRAO);
         txtCamAno.setFont(Design.FONTE_PADRAO);
@@ -201,6 +221,10 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
         separator.setBounds(505, 775, 410, 5);
         frame.add(separator);
         
+        separator = new JSeparator(SwingConstants.HORIZONTAL);
+        separator.setBounds(1380, 775, 350, 5);
+        frame.add(separator);
+        
 	}
 	
 	private void adicionaElementos() {
@@ -214,6 +238,7 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
         frame.add(lblAno);
         frame.add(lblTituloCadastro);
         frame.add(lblTituloCaminhamento);
+        frame.add(lblTituloIntegrantes);
         frame.add(lblTipoCaminhamento);
         frame.add(lblCamAno);
         frame.add(lblCamGenero);
@@ -230,6 +255,10 @@ public class Principal extends JFrame implements ActionListener, KeyListener, It
         frame.add(btnBuscar);
         frame.add(btnRemover);
         frame.add(btnAdicionar);
+        
+        frame.add(lblJefferson);
+        frame.add(lblKeoma);
+        frame.add(lblWiliam);
         
         frame.add(listFilmes);
 	}
