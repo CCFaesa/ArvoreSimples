@@ -80,7 +80,7 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
 		
 			this.setVisible(true);
 			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-			this.setSize(1410, 960);
+			this.setSize(Design.TAMANHO_TELA_X, Design.TAMANHO_TELA_Y);
 			this.setLayout(new BorderLayout());
 			
 		} catch (Exception e) {
@@ -95,7 +95,7 @@ public class Principal extends JFrame implements ActionListener, KeyListener{
 		
 		frame.setBorder(BorderFactory.createLineBorder(Color.red));
 		frame.setBackground(Design.BACKGROUND_PRINCIPAL);
-        frame.setPreferredSize(new Dimension(1380, 900));
+        frame.setPreferredSize(new Dimension(Design.TAMANHO_TELA_X - 30, Design.TAMANHO_TELA_Y - 60));
         frame.setLayout(null);
         
         titulo = new JLabel("Árvore Binária de Filmes");

@@ -13,6 +13,10 @@ public abstract class Design {
 	public static final Font FONTE_TITULO2 = new Font("Arial", Font.BOLD, 22);
 	public static final Font FONTE_TITULO1 = new Font("Arial", Font.BOLD, 27);
 	
+	public static final int TAMANHO_TELA_X = 1800;
+	public static final int TAMANHO_TELA_Y = 960;
+	
+	
 	public static ArrayList<CFolha> getPosicoes(){
 		ArrayList<CFolha> retorno = new ArrayList<>();
 		
