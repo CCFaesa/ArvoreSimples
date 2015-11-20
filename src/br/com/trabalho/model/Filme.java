@@ -18,8 +18,6 @@ public class Filme {
 		this.nome = nome;
 	}
 	
-	
-	
 	public Filme(String nome, Genero genero, int anoLancamento) {
 		this();
 		this.nome = nome;
@@ -53,6 +51,11 @@ public class Filme {
 
 	public void setAnoLancamento(int anoLancamento) {
 		this.anoLancamento = anoLancamento;
+	}
+	
+	@Override
+	public String toString() {
+		return "#" + this.id + ": " + this.nome + " - " + this.anoLancamento + "{" + this.genero.getDescricao() + "}";
 	}
 	
 }
