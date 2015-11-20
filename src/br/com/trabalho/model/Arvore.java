@@ -35,7 +35,7 @@ public class Arvore {
 			NoArv novo = new NoArv(elem);
 			return novo;
 		}else {
-			if (elem.getId() < no.getInfo().getId()){
+			if (elem.getNome().compareTo(no.getInfo().getNome()) < 0){
 				no.setEsq(inserir(elem, no.getEsq()));
 				return no;
 			}else{
